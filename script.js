@@ -2,6 +2,7 @@
 
 // Event API Integration (Example using an API like Eventbrite)
 const eventList = document.getElementById('event-list');
+const mapContainer = document.getElementById('map-container');
 
 async function fetchEvents() {
     const response = await fetch('https://api.example.com/events'); // Replace with your API URL
@@ -19,21 +20,24 @@ async function fetchEvents() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', fetchEvents);
-
-// Google Map Integration
-function initMap() {
-    const mapOptions = {
-        center: { lat: 40.7128, lng: -74.0060 },  // Replace with your campus coordinates
-        zoom: 15,
-        mapTypeId: 'roadmap'
-    };
-
-    const map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
+if (eventList) {
+    document.addEventListener('DOMContentLoaded', fetchEvents);
 }
 
-// Load Google Map script
-const script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
-script.async = true;
-document.body.appendChild(script);
+// Only load Google Maps JS API when there is no iframe embed inside map-container.
+if (mapContainer && !mapContainer.querySelector('iframe')) {
+    window.initMap = function() {
+        const mapOptions = {
+            center: { lat: 40.7128, lng: -74.0060 },  // Replace with your campus coordinates
+            zoom: 15,
+            mapTypeId: 'roadmap'
+        };
+
+        new google.maps.Map(mapContainer, mapOptions);
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap';
+    script.async = true;
+    document.body.appendChild(script);
+}
