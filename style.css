@@ -1,0 +1,45 @@
+/* styles.css */
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #007bff;
+}
+
+footer {
+    background-color: #343a40;
+}
+
+h1, h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+}
+
+/* Responsive Grid */
+@media (min-width: 768px) {
+    .card {
+        margin-bottom: 1.5rem;
+    }
+}
